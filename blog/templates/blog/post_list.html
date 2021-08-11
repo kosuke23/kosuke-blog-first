@@ -1,0 +1,21 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+{% for post in post_list %}
+    <div class="card">
+        <h2 class="card-header">{{ post.title }}</a></h2>
+        <div class="card-body">
+          <p class="card-date">公開日: {{ post.published_date|date:'Y年Md日 H時m分' }}</p>
+          <h4 class="card-text">{{ post.text|linebreaksbr |truncatechars:50 }}</h4>
+          {% if post.images %}
+             <p><img src="{{ post.images.url }}"width="200"></p>
+          {% endif %}
+          <a href="{% url 'blog:detail' pk=post.pk %}" class="btn btn-default">詳細ページへ</a>
+        </div>
+    </div>
+    <hr>
+{% endfor %}
+
+{% include 'blog/page.html' %}
+
+{% endblock %}
